@@ -126,7 +126,7 @@ app.put('/cart', async (req, res) => {
 
 app.post('/signup', async (req,res)=>{
 
-    const {fname,lname,email,password} = req.body;
+    const {fname,lname,email,password} = req.body.body;
     console.log(fname)
     console.log(req.body)
     console.log(password)
@@ -137,7 +137,7 @@ app.post('/signup', async (req,res)=>{
     .findOne({email});
 
     if(isUserExist){
-        res.status(400).send({msg:"user Already Exist"});
+        res.send({msg:"user Already Exist"});
         return;
     }
     else{
@@ -156,7 +156,7 @@ app.post('/signup', async (req,res)=>{
 
 app.post('/login', async (req,res)=>{
 
-    const {email,password} = req.body;
+    const {email,password} = req.body.body;
     
     const isUserExist = await client
     .db("ishop")
@@ -164,14 +164,14 @@ app.post('/login', async (req,res)=>{
     .findOne({email});
 
     if(!isUserExist){
-        res.status(400).send({msg:"Invalid Credential"});
+        res.status(200).send({msg:"Invalid Credential"});
 
         return;
     }
     const passmatch = await bcrypt.compare(password,isUserExist.password)
 
     if(!passmatch){
-        res.status(400).send({msg:"Invalid Password Credential"});
+        res.status(200).send({msg:"Invalid Password Credential"});
 
         return;
     }
