@@ -4,7 +4,7 @@ import cors from 'cors';
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import bodyParser from 'body-parser';
-// import morgan from 'morgan';
+import morgan from 'morgan';
  
 // const MONGO_URL = "mongodb://127.0.0.1:27017"
 const MONGO_URL = "mongodb+srv://harshtiwari830304:welcome123@cluster0.zpxleta.mongodb.net/ishop"
@@ -15,7 +15,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.json())
-// app.use(morgan('dev'))
+app.use(morgan('dev'))
 app.use(cors({
     origin: "*"
 }));
